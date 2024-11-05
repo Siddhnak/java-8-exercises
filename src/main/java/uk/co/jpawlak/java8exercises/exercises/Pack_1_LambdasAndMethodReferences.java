@@ -5,6 +5,8 @@ import org.junit.Test;
 import uk.co.jpawlak.java8exercises.utils.Formatter;
 import uk.co.jpawlak.java8exercises.utils.Node;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -33,13 +35,10 @@ public class Pack_1_LambdasAndMethodReferences {
             }
         };
 
-        Function<Integer, String> newFunction_lambda = integer -> integer.toString();
-
+        Function<Integer, String> newFunction_lambda = integer -> integer.toString(); //as lambda needs FI..
         Function<Integer, String> newFunction_lambda_withOptionalBrackets = (integer) -> integer.toString();
-
         Function<Integer, String> newFunction_methodReference = Object::toString;
     }
-
 
     @Test
     public void example_2_functionalInterface() {
@@ -57,8 +56,6 @@ public class Pack_1_LambdasAndMethodReferences {
 
         List<?> list;
     }
-
-
     @Test
     public void example_3_noInputNoOutput() {
         Runnable oldRunnable = new Runnable() {
@@ -67,12 +64,9 @@ public class Pack_1_LambdasAndMethodReferences {
                 System.out.println("hello world");
             }
         };
-
         // for no-arg methods the brackets are mandatory
         Runnable newRunnable_lambda = () -> System.out.println("hello world");
     }
-
-
     @Test
     public void example_4_twoInputsOneOutput() {
         Comparator<Integer> oldComparator = new Comparator<Integer>() {
@@ -93,16 +87,13 @@ public class Pack_1_LambdasAndMethodReferences {
     @Test
     public void example_5_methodReferences() {
         // let's consider example 1 again, but with slightly different implementation:
-
         Function<Integer, String> oldFunction = new Function<Integer, String>() {
             @Override
             public String apply(Integer integer) {
                 return Integer.toString(integer); // in example 1 it was:   integer.toString()
             }
         };
-
         // we can use lambda
-
         Function<Integer, String> newFunction_lambda = integer -> Integer.toString(integer);
 
         // but we cannot use method reference
@@ -176,7 +167,7 @@ public class Pack_1_LambdasAndMethodReferences {
     // EXERCISES
 
 
-    @Ignore
+//    @Ignore
     @Test
     public void exercise_1_sort() {
         // sort a list using Collections.sort
@@ -187,7 +178,16 @@ public class Pack_1_LambdasAndMethodReferences {
         List<Node> list = asList(new Node("c"), new Node("b"), new Node("d"), new Node("a"));
 
         //TODO write your code here
+        // Using Comparator.comparing
+//        Collections.sort(list, Comparator.comparing(Node::getName));
 
+        // Using lambda function
+//        Collections.sort(list, (node1, node2) -> node1.getName().compareTo(node2.getName()));
+//        public static void exercise_1(List<Node> list) {
+//            Collections.sort(list, (a, b) -> a.name().compareTo(b.name()));
+   Collections.sort(list,Comparator.comparing(Node::name)); //method ref
+
+//        Collections.sort(list, Comparator.comparing(Node::getName));
         assertThat(list, sameBeanAs(asList(new Node("a"), new Node("b"), new Node("c"), new Node("d"))));
     }
 
